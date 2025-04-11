@@ -7,7 +7,8 @@ import java.io.File;
 public class StaticGenerator {
     public static void main(String[] args) {
         String projectPath = System.getProperty("user.dir");
-        String inputPath =projectPath+File.separator+ "yuzi-generator-demo-projects" + File.separator + "acm-template";
+        String inputPath = projectPath + File.separator + "yuzi-generator-demo-projects" + File.separator
+                + "acm-template";
         String outputPath = projectPath;
         System.out.println(projectPath);
         // copyFileByHutool(inputPath, outputPath);
