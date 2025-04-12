@@ -1,13 +1,14 @@
 package top.waterspo.maker;
 
+import freemarker.template.TemplateException;
+import top.waterspo.maker.generator.main.MainGenerator;
 
-//import top.waterspo.maker.cli.CommandExecutor;
-
+import java.io.IOException;
 
 public class Main {
 
-//    public static void main(String[] args) {
-//        args = new String[]{"generate", "-a", "-l", "-o"};
-//        CommandExecutor commandExecutor = new CommandExecutor();
-//        commandExecutor.doExecute(args);
+    public static void main(String[] args) throws TemplateException, IOException, InterruptedException {
+        MainGenerator mainGenerator = new MainGenerator();
+        mainGenerator.doGenerate();
+    }
 }
