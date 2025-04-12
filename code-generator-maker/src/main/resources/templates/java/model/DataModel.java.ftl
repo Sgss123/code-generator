@@ -1,13 +1,18 @@
-package top.waterspo.maker.model;
+package ${basePackage}.model;
 
 import lombok.Data;
 
 @Data
 public class DataModel {
 
-    private String author = "MFJip";
+<#list modelConfig.models as modelInfo>
 
-    private String outputText = "求和结果：";
+    <#if modelInfo.description??>
+    /**
+     * ${modelInfo.description}
+     */
+    </#if>
+    private ${modelInfo.type} ${modelInfo.fieldName}<#if modelInfo.defaultValue??> = ${modelInfo.defaultValue?c}</#if>;
 
-    private boolean loop;
+</#list>
 }

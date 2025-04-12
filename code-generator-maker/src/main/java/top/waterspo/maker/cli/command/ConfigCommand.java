@@ -1,8 +1,8 @@
-package ${basePackage}.cli.command;
+package top.waterspo.maker.cli.command;
 
 import cn.hutool.core.util.ReflectUtil;
 import picocli.CommandLine;
-import ${basePackage}.model.DataModel;
+import top.waterspo.maker.model.DataModel;
 
 import java.lang.reflect.Field;
 
@@ -12,15 +12,10 @@ public class ConfigCommand implements Runnable{
 
     @Override
     public void run() {
-        System.out.println("查看参数信息");
-
         Field[] fields = ReflectUtil.getFields(DataModel.class);
-
         for (Field field : fields) {
             System.out.println("字段类型："+field.getType());
             System.out.println("字段名称："+field.getName());
-            System.out.println("---");
-
         }
     }
 }

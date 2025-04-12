@@ -1,32 +1,29 @@
-package top.waterspo.maker.cli.command;
+package ${basePackage}.cli.command;
 
 
 import cn.hutool.core.bean.BeanUtil;
 import lombok.Data;
 import picocli.CommandLine;
-import top.waterspo.maker.generator.file.FileGenerator;
-import top.waterspo.maker.model.DataModel;
+import ${basePackage}.generator.MainGenerator;
+import ${basePackage}.model.DataModel;
 
 import java.util.concurrent.Callable;
 
-@CommandLine.Command(name = "generate", description = "生成模版文件", mixinStandardHelpOptions = true)
+@CommandLine.Command(name = "generate", description = "生成代码", mixinStandardHelpOptions = true)
 @Data
-public class GenerateCommand implements Callable<Integer>{
+public class GenerateCommand implements Callable
+<Integer>{
+    <#list modelConfig.models as modelInfo>
 
-    @CommandLine.Option(names = {"-l", "--loop"}, description = "是否循环", arity = "0..1", interactive = true)
-    private boolean loop;
-
-    @CommandLine.Option(names = {"-a", "--author"}, description = "作者", arity = "0..1", interactive = true)
-    private String author = "mfjip";
-
-    @CommandLine.Option(names = {"-o", "--outputText"}, description = "输出文本", arity = "0..1", interactive = true)
-    private String outputText = "sum = ";
+        @CommandLine.Option(names = {<#if modelInfo.abbr??>"-${modelInfo.abbr}", </#if>"--${modelInfo.fieldName}"}, <#if modelInfo.description??>description = "${modelInfo.description}"</#if> , arity = "0..1", interactive = true, echo = true)
+        private ${modelInfo.type} ${modelInfo.fieldName}<#if modelInfo.defaultValue??> = ${modelInfo.defaultValue?c}</#if>;
+    </#list>
 
     @Override
     public Integer call() throws Exception {
-        DataModel dataModel = new DataModel();
-        BeanUtil.copyProperties(this, dataModel);
-        FileGenerator.doGenerate(dataModel);
-        return 0;
+    DataModel dataModel = new DataModel();
+    BeanUtil.copyProperties(this, dataModel);
+    MainGenerator.doGenerate(dataModel);
+    return 0;
     }
 }

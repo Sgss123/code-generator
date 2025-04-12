@@ -1,4 +1,4 @@
-package ${basePackage}.cli.command;
+package top.waterspo.maker.cli.command;
 
 import cn.hutool.core.io.FileUtil;
 import picocli.CommandLine;
@@ -12,7 +12,9 @@ public class ListCommand implements Runnable{
 
     @Override
     public void run() {
-        String inputPath = "${fileConfig.inputRootPath}";
+        String projectPath = System.getProperty("user.dir");
+        File parentFile = new File(projectPath).getParentFile();
+        String inputPath = new File(parentFile,"yuzi-generator-demo-projects/acm-template").getAbsolutePath();
         List<File> files = FileUtil.loopFiles(inputPath);
         for (File file : files) {
             System.out.println(file);
