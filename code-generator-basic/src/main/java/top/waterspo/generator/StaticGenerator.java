@@ -15,7 +15,7 @@ public class StaticGenerator {
     public static void main(String[] args) {
         String projectPath = getProperty("user.dir");
         File parentFile = new File(projectPath).getParentFile();
-        String inputPath = new File(parentFile, "yuzi-generator-demo-projects/acm-template").getAbsolutePath();
+        String inputPath = new File(parentFile, "yuzi-generator-demo-projects/acm-templates").getAbsolutePath();
         String outputPath = projectPath;
         copyFileByHutool(inputPath, outputPath);
     }
