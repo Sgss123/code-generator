@@ -105,5 +105,21 @@ public class MainGenerator {
         String jarName = String.format("%s-%s-jar-with-dependencies.jar", meta.getName(), meta.getVersion());
         String jarPath = "target/" + jarName;
         ScriptGenerator.doGerenate(shellOutputFilePath, jarPath);
+
+        // 生成精简过后的产物包
+        String distOutputPath = outputPath + "-dist";
+        // 复制 jar 包
+        String targetAbsolutePath = distOutputPath + File.separator + "target";
+        FileUtil.mkdir(targetAbsolutePath);
+        String jarAbsolutePath = outputPath + File.separator + jarPath;
+        FileUtil.copy(jarAbsolutePath, targetAbsolutePath, true);
+        // 复制 script
+        // Linux
+        FileUtil.copy(shellOutputFilePath, distOutputPath, true);
+        // Windows
+        FileUtil.copy(shellOutputFilePath + ".bat", distOutputPath, true);
+        // 复制模板文件
+        FileUtil.copy(sourceCopyDestPath, distOutputPath, true);
+
     }
 }
