@@ -7,6 +7,10 @@ public class MetaManager {
 
     private static volatile Meta meta;
 
+    public MetaManager() {
+        // 私有构造函数，禁止实例化
+    }
+
     public static Meta getMetaObject() {
         if (meta == null) {
             synchronized (MetaManager.class) {
