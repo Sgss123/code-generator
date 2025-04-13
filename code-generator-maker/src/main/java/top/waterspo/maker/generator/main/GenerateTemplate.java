@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public abstract class GenerateTemplate {
 
-    public void doGenerate() throws TemplateException, IOException, InterruptedException {
+    public void doGenerate(String[] args) throws TemplateException, IOException, InterruptedException {
         Meta meta = MetaManager.getMetaObject();
 
         // 0、输出根路径

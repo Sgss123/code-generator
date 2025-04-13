@@ -81,38 +81,37 @@ public class MetaValidator {
         }
 
         List<Meta.FileConfig.FileInfo> fileInfoList = fileConfig.getFiles();
-        if (!CollUtil.isEmpty(fileInfoList)) {
-            for (Meta.FileConfig.FileInfo fileInfo : fileInfoList) {
-                validAndFillFileInfo(fileInfo);
-            }
+        if (CollUtil.isNotEmpty(fileInfoList)) {
+            return;
         }
-    }
-
-    // 抽取文件信息验证和填充为单独的方法
-    private static void validAndFillFileInfo(Meta.FileConfig.FileInfo fileInfo) {
-        // inputPath: 必填
-        String inputPath = fileInfo.getInputPath();
-        if (StrUtil.isBlank(inputPath)) {
-            throw new MetaException("未填写 inputPath");
-        }
-
-        // outputPath: 必填
-        fileInfo.setOutputPath(StrUtil.emptyToDefault(fileInfo.getOutputPath(), inputPath));
-
-        // type: 默认 inputPath 有文件后缀为 file，否则为 dir
-        String type = fileInfo.getType();
-        if (StrUtil.isBlank(fileInfo.getType())) {
-            if (StrUtil.isBlank(FileUtil.getSuffix(inputPath))) {
-                fileInfo.setType(FileTypeEnum.DIR.getValue());
-            } else {
-                fileInfo.setType(FileTypeEnum.FILE.getValue());
+        for (Meta.FileConfig.FileInfo fileInfo : fileInfoList) {
+            // inputPath: 必填
+            String inputPath = fileInfo.getInputPath();
+            if (StrUtil.isBlank(inputPath)) {
+                throw new MetaException("未填写 inputPath");
             }
 
-        }
+            // outputPath: 必填
+            fileInfo.setOutputPath(StrUtil.emptyToDefault(fileInfo.getOutputPath(), inputPath));
 
-        // generateType: 文件结尾为 ftl 时，generateType 为 dynamic，否则为 static
-        if (StrUtil.isBlank(fileInfo.getGenerateType())) {
-            fileInfo.setGenerateType(StrUtil.endWith(inputPath, ".ftl") ? FileGenerateTypeEnum.DYNAMIC.getValue() : FileGenerateTypeEnum.STATIC.getValue());
+            // type: 默认 inputPath 有文件后缀为 file，否则为 dir
+            String type = fileInfo.getType();
+            if (type.equals(FileTypeEnum.GROUP.getValue())) {
+                continue;
+            }
+            if (StrUtil.isBlank(fileInfo.getType())) {
+                if (StrUtil.isBlank(FileUtil.getSuffix(inputPath))) {
+                    fileInfo.setType(FileTypeEnum.DIR.getValue());
+                } else {
+                    fileInfo.setType(FileTypeEnum.FILE.getValue());
+                }
+
+            }
+
+            // generateType: 文件结尾为 ftl 时，generateType 为 dynamic，否则为 static
+            if (StrUtil.isBlank(fileInfo.getGenerateType())) {
+                fileInfo.setGenerateType(StrUtil.endWith(inputPath, ".ftl") ? FileGenerateTypeEnum.DYNAMIC.getValue() : FileGenerateTypeEnum.STATIC.getValue());
+            }
         }
     }
 
