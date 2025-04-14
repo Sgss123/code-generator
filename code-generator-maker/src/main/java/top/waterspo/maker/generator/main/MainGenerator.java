@@ -12,5 +12,4 @@ public class MainGenerator extends GenerateTemplate {
         System.out.println("No dist version generated.");
     }
 
-
 }

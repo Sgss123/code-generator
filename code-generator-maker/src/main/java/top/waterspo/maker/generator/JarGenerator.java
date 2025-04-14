@@ -4,13 +4,11 @@ import java.io.*;
 
 public class JarGenerator {
 
-
     public static void doGenerate(String projectDir) throws IOException, InterruptedException {
         // 调用 Process 执行 mvn 命令
         String winMavenCommand = "mvn.cmd clean package -DskipTests=true -Dfile.encoding=UTF-8";
         String otherMavenCommand = "mvn clean package -DskipTests=true -Dfile.encoding=UTF-8";
         String mavenCommand = winMavenCommand;
-
 
         ProcessBuilder pb = new ProcessBuilder(mavenCommand.split(" "));
         pb.directory(new File(projectDir));

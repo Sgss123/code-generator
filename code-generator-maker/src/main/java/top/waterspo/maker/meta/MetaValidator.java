@@ -110,7 +110,8 @@ public class MetaValidator {
 
             // generateType: 文件结尾为 ftl 时，generateType 为 dynamic，否则为 static
             if (StrUtil.isBlank(fileInfo.getGenerateType())) {
-                fileInfo.setGenerateType(StrUtil.endWith(inputPath, ".ftl") ? FileGenerateTypeEnum.DYNAMIC.getValue() : FileGenerateTypeEnum.STATIC.getValue());
+                fileInfo.setGenerateType(StrUtil.endWith(inputPath, ".ftl") ? FileGenerateTypeEnum.DYNAMIC.getValue()
+                        : FileGenerateTypeEnum.STATIC.getValue());
             }
         }
     }

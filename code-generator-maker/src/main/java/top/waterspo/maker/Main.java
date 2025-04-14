@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) throws TemplateException, IOException, InterruptedException {
         MainGenerator mainGenerator = new MainGenerator();
-//        args = new String[] {"generate", "--needGit=true"};
+        // args = new String[] {"generate", "--needGit=true"};
         mainGenerator.doGenerate();
     }
 }

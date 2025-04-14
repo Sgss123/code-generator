@@ -1,6 +1,5 @@
 package top.waterspo.maker.meta.enums;
 
-
 /**
  * 文件类型枚举
  */
@@ -12,8 +11,6 @@ public enum FileTypeEnum {
 
     GROUP("分组", "group");
 
-
-
     private final String text;
 
     private final String value;
@@ -22,7 +19,6 @@ public enum FileTypeEnum {
         this.text = text;
         this.value = value;
     }
-
 
     public String getText() {
         return text;

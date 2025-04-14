@@ -177,4 +177,3 @@ public abstract class GenerateTemplate {
         return sourceCopyDestPath;
     }
 }
-

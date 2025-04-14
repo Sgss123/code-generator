@@ -25,7 +25,6 @@ public class ScriptGenerator {
 
         }
 
-
         // Windows
         sb = new StringBuilder();
         sb.append("@echo off").append("\n");
