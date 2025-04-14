@@ -18,9 +18,9 @@ public class DynamicGenerator {
     /**
      * 生成文件
      *
-     * @param inputPath  模板文件输入路径
+     * @param inputPath 模板文件输入路径
      * @param outputPath 输出路径
-     * @param model      数据模型
+     * @param model 数据模型
      * @throws IOException
      * @throws TemplateException
      */
@@ -39,7 +39,7 @@ public class DynamicGenerator {
         String templateName = new File(inputPath).getName();
         Template template = configuration.getTemplate(templateName);
 
-        // 若文件不存在则创建目录
+        // 文件不存在则创建文件和父目录
         if (!FileUtil.exist(outputPath)) {
             FileUtil.touch(outputPath);
         }

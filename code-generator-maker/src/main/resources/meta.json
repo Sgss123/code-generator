@@ -4,7 +4,7 @@
 	"basePackage": "top.waterspo",
 	"version": "1.0",
 	"author": "mfjip",
-	"createTime": "2025-4-12",
+	"createTime": "2023-11-22",
 	"fileConfig": {
 		"inputRootPath": ".source/acm-template-pro",
 		"outputRootPath": "generated",
@@ -12,23 +12,16 @@
 		"type": "dir",
 		"files": [
 			{
-				"inputPath": "src/top/waterspo/acm/MainTemplate.java.ftl",
-				"outputPath": "src/top/waterspo/acm/MainTemplate.java",
-				"type": "file",
-				"generateType": "dynamic"
-			},
-			{
 				"groupKey": "git",
-				"groupName": "開源",
+				"groupName": "开源",
 				"type": "group",
-				"conditdion": "needGit",
+				"condition": "needGit",
 				"files": [
 					{
 						"inputPath": ".gitignore",
 						"outputPath": ".gitignore",
 						"type": "file",
-						"generateType": "static",
-						"condition": "needGit"
+						"generateType": "static"
 					},
 					{
 						"inputPath": "README.md",
@@ -37,6 +30,12 @@
 						"generateType": "static"
 					}
 				]
+			},
+			{
+				"inputPath": "src/com/yupi/acm/MainTemplate.java.ftl",
+				"outputPath": "src/com/yupi/acm/MainTemplate.java",
+				"type": "file",
+				"generateType": "dynamic"
 			}
 		]
 	},
@@ -57,15 +56,16 @@
 			},
 			{
 				"groupKey": "mainTemplate",
-				"groupName": "主模板",
-				"type": "mainTemplate",
-				"description": "用于生成核心模版文件",
+				"groupName": "核心模板",
+				"type": "MainTemplate",
+				"description": "用于生成核心模板文件",
+				"condition": "loop",
 				"models": [
 					{
 						"fieldName": "author",
 						"type": "String",
 						"description": "作者注释",
-						"defaultValue": "mfjip",
+						"defaultValue": "yupi",
 						"abbr": "a"
 					},
 					{

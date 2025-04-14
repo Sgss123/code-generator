@@ -1,8 +1,5 @@
 package top.waterspo.maker.meta;
 
-/**
- * 元信息异常
- */
 public class MetaException extends RuntimeException {
 
     public MetaException(String message) {

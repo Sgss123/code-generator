@@ -1,6 +1,5 @@
 package ${basePackage};
 
-
 import ${basePackage}.cli.CommandExecutor;
 
 public class Main {

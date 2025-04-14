@@ -1,33 +1,38 @@
 package top.waterspo.maker.generator;
 
 import java.io.*;
+import java.util.Map;
 
 public class JarGenerator {
 
     public static void doGenerate(String projectDir) throws IOException, InterruptedException {
-        // 调用 Process 执行 mvn 命令
-        String winMavenCommand = "mvn.cmd clean package -DskipTests=true -Dfile.encoding=UTF-8";
-        String otherMavenCommand = "mvn clean package -DskipTests=true -Dfile.encoding=UTF-8";
+        // 清理之前的构建并打包
+        // 注意不同操作系统，执行的命令不同
+        String winMavenCommand = "mvn.cmd clean package -DskipTests=true";
+        String otherMavenCommand = "mvn clean package -DskipTests=true";
         String mavenCommand = winMavenCommand;
 
-        ProcessBuilder pb = new ProcessBuilder(mavenCommand.split(" "));
-        pb.directory(new File(projectDir));
+        // 这里一定要拆分！
+        ProcessBuilder processBuilder = new ProcessBuilder(mavenCommand.split(" "));
+        processBuilder.directory(new File(projectDir));
+        Map<String, String> environment = processBuilder.environment();
+        System.out.println(environment);
+        Process process = processBuilder.start();
 
-        Process process = pb.start();
-
-        // 读取输出流
+        // 读取命令的输出
         InputStream inputStream = process.getInputStream();
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
-        while ((line = bufferedReader.readLine()) != null) {
+        while ((line = reader.readLine()) != null) {
             System.out.println(line);
         }
 
+        // 等待命令执行完成
         int exitCode = process.waitFor();
-        System.out.println("进程已结束，退出代码为 " + exitCode);
+        System.out.println("命令执行结束，退出码：" + exitCode);
     }
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        doGenerate("Z:\\IdeaProjects\\code-generator\\code-generator-maker-generated");
+        doGenerate("C:\\code\\yuzi-generator\\yuzi-generator-maker\\generated\\acm-template-pro-generator");
     }
 }

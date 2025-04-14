@@ -7,8 +7,8 @@ public class MetaManager {
 
     private static volatile Meta meta;
 
-    public MetaManager() {
-        // 私有构造函数，禁止实例化
+    private MetaManager() {
+        // 私有构造函数，防止外部实例化
     }
 
     public static Meta getMetaObject() {
@@ -25,11 +25,8 @@ public class MetaManager {
     private static Meta initMeta() {
         String metaJson = ResourceUtil.readUtf8Str("meta.json");
         Meta newMeta = JSONUtil.toBean(metaJson, Meta.class);
-        // todo 校验配置文件，处理默认值
+        // 校验和处理默认值
+        MetaValidator.doValidAndFill(newMeta);
         return newMeta;
-    }
-
-    public static void main(String[] args) {
-
     }
 }

@@ -1,24 +1,20 @@
 package ${basePackage}.generator;
 
-import ${basePackage}.model.DataModel;
-
+import com.yupi.model.DataModel;
 import freemarker.template.TemplateException;
 
 import java.io.File;
 import java.io.IOException;
 
-<#macro generateFile indent fileInfo >
+<#macro generateFile indent fileInfo>
 ${indent}inputPath = new File(inputRootPath, "${fileInfo.inputPath}").getAbsolutePath();
 ${indent}outputPath = new File(outputRootPath, "${fileInfo.outputPath}").getAbsolutePath();
-<#if fileInfo.type == "static">
-${indent}// 生成静态文件
+<#if fileInfo.generateType == "static">
 ${indent}StaticGenerator.copyFilesByHutool(inputPath, outputPath);
 <#else>
 ${indent}DynamicGenerator.doGenerate(inputPath, outputPath, model);
 </#if>
 </#macro>
-
-
 
 /**
  * 核心生成器
@@ -33,42 +29,47 @@ public class MainGenerator {
      * @throws IOException
      */
     public static void doGenerate(DataModel model) throws TemplateException, IOException {
-
         String inputRootPath = "${fileConfig.inputRootPath}";
         String outputRootPath = "${fileConfig.outputRootPath}";
 
         String inputPath;
         String outputPath;
 
-<#list modelConfig.models as modelInfo>
+    <#-- 获取模型变量 -->
+    <#list modelConfig.models as modelInfo>
+        <#-- 有分组 -->
+        <#if modelInfo.groupKey??>
+        <#list modelInfo.models as subModelInfo>
+        ${subModelInfo.type} ${subModelInfo.fieldName} = model.${modelInfo.groupKey}.${subModelInfo.fieldName};
+        </#list>
+        <#else>
         ${modelInfo.type} ${modelInfo.fieldName} = model.${modelInfo.fieldName};
-</#list>
+        </#if>
+    </#list>
 
-<#list fileConfig.files as fileInfo>
-
-
-    <#if fileInfo.groupKey??>
+    <#list fileConfig.files as fileInfo>
+        <#if fileInfo.groupKey??>
         // groupKey = ${fileInfo.groupKey}
         <#if fileInfo.condition??>
+        if (${fileInfo.condition}) {
             <#list fileInfo.files as fileInfo>
-                // todo
-                <@generateFile indent="                " fileInfo=fileInfo />
+            <@generateFile fileInfo=fileInfo indent="            " />
             </#list>
+        }
         <#else>
-            // todo
-            <@generateFile indent="            " fileInfo=fileInfo />
+        <#list fileInfo.files as fileInfo>
+        <@generateFile fileInfo=fileInfo indent="        " />
+        </#list>
         </#if>
-    <#else>
+        <#else>
         <#if fileInfo.condition??>
-            if (${fileInfo.condition}) {
-            // todo
-            <@generateFile indent="                " fileInfo=fileInfo />
-            }
+        if(${fileInfo.condition}) {
+            <@generateFile fileInfo=fileInfo indent="            " />
+        }
         <#else>
-            // todo
-            <@generateFile indent="            " fileInfo=fileInfo />
+        <@generateFile fileInfo=fileInfo indent="        " />
         </#if>
-    </#if>
-</#list>
+        </#if>
+    </#list>
     }
 }

@@ -1,11 +1,15 @@
 package ${basePackage}.cli;
 
-import picocli.CommandLine;
-import ${basePackage}.cli.command.ConfigCommand;
 import ${basePackage}.cli.command.GenerateCommand;
 import ${basePackage}.cli.command.ListCommand;
+import ${basePackage}.cli.command.ConfigCommand;
+import picocli.CommandLine;
+import picocli.CommandLine.Command;
 
-@CommandLine.Command(name = "${name}", mixinStandardHelpOptions = true)
+/**
+ * 命令执行器
+ */
+@Command(name = "${name}", mixinStandardHelpOptions = true)
 public class CommandExecutor implements Runnable {
 
     private final CommandLine commandLine;

@@ -1,15 +1,10 @@
 package top.waterspo.maker.meta.enums;
 
-/**
- * 文件类型枚举
- */
 public enum FileTypeEnum {
 
     DIR("目录", "dir"),
-
     FILE("文件", "file"),
-
-    GROUP("分组", "group");
+    GROUP("文件组", "group");
 
     private final String text;
 
