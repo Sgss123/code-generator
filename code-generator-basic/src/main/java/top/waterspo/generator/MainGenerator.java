@@ -20,8 +20,8 @@ public class MainGenerator {
      */
     public static void doGenerate(Object model) throws TemplateException, IOException {
 
-        String inputRootPath = "Z:\\IdeaProjects\\code-generator\\code-generator-demo-projects\\acm-template-pro";
-        String outputRootPath = "Z:\\IdeaProjects\\code-generator";
+        String inputRootPath = "D:\\Documents\\source\\IdeaProjects\\code-generator\\code-generator-demo-projects\\acm-template-pro";
+        String outputRootPath = "D:\\Documents\\source\\IdeaProjects\\code-generator";
 
         String inputPath;
         String outputPath;
